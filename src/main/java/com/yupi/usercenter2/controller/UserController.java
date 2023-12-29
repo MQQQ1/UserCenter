@@ -57,6 +57,18 @@ public class UserController {
         }
         return userService.userLogin(userAccount, userPassword, request);
     }
+    @GetMapping("/current")
+    public User getCurrentUser(HttpServletRequest request){
+        Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
+        User currentUser = (User)  userObj;
+        if(currentUser == null){
+            return null;
+        }
+        long userId = currentUser.getId();
+        //todo 校验用户是否合法(没有判断用户是否被封号)
+        User user = userService.getById(userId);
+        return userService.getSafetyUser(user);
+    }
     @GetMapping("/search")
     public List<User> searchUsers(String username, HttpServletRequest request) {
         //仅管理员可查询
