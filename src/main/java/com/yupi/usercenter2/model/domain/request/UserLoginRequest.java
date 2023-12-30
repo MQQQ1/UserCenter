@@ -16,6 +16,7 @@ import java.io.Serializable;
 @Data
 public class UserLoginRequest implements Serializable {
 
+    private static final long serialVersionUID = 4555850124548307239L;
 
     private String userAccount;
 
